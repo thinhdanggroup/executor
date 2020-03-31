@@ -2,6 +2,7 @@ package executor
 
 import (
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -15,7 +16,7 @@ func TestValidateConfig(t *testing.T) {
 	assert.Nil(executor)
 }
 
-func TestRunExecutor(t *testing.T) {
+func TestPublishJobSuccess(t *testing.T) {
 	var (
 		value int
 		as    *assert.Assertions
@@ -36,7 +37,6 @@ func TestRunExecutor(t *testing.T) {
 
 	as.Nil(err)
 	executor.Wait()
-
 }
 
 func TestPublishJobFail(t *testing.T) {
@@ -66,5 +66,33 @@ func TestPublishJobFail(t *testing.T) {
 	as.NotNil(err)
 	as.Equal(err.Error(), "Call with too many input arguments")
 	executor.Wait()
+
+}
+
+func TestRateLimiter(t *testing.T) {
+	var (
+		as  *assert.Assertions
+		err error
+	)
+
+	as = assert.New(t)
+
+	executor, err := NewExecutor(ExecutorConfig{
+		ReqPerSeconds: 2,
+		NumWorkers:    2,
+		QueueSize:     10,
+	})
+	as.Nil(err)
+
+	startTime := time.Now().Unix()
+	for i := 0; i < 8; i++ {
+		err = executor.Publish(func(input int) {
+			as.Equal(1, input)
+		}, 1)
+		as.Nil(err)
+	}
+	executor.Close()
+	endTime := time.Now().Unix()
+	as.InDelta(endTime-startTime, 4, 1)
 
 }
