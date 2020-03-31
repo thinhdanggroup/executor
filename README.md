@@ -1,5 +1,7 @@
 # Executor
 
+[![Build Status](https://travis-ci.org/thinhdanggroup/executor.svg?branch=master)](https://travis-ci.org/thinhdanggroup/executor)
+
 Executor is a simple thread pool implemented for Golang.
 
 Features:
