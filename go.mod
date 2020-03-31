@@ -1,4 +1,4 @@
-module executor
+module thinhdanggroup/executor
 
 go 1.13
 
