@@ -9,8 +9,11 @@ func main() {
 	executor, err := executor.NewExecutor(executor.DefaultExecutorConfig())
 
 	if err != nil {
-		logrus.Errorf("Error create executor", err)
+		logrus.Error(err)
 	}
+
+	// close resource before quit
+	defer executor.Close()
 
 	for i := 0; i < 10; i++ {
 		executor.Publish(func(input int) {
@@ -18,5 +21,4 @@ func main() {
 		}, i)
 	}
 
-	executor.Close()
 }
