@@ -30,18 +30,19 @@ defer executor.Close()
 
 for i := 0; i < 10; i++ {
   executor.Publish(func(input int) {
-    logrus.Infof("Idx=%d", input)
+    fmt.Printf("2 * %d = %d \n", input, 2*input)
+  }, i)
+
+  executor.Publish(func(input int) {
+    fmt.Printf("2 ^ %d = %d \n", input, input^2)
   }, i)
 }
 
-// INFO[0000] Idx=0                                        
-// INFO[0000] Idx=1                                        
-// INFO[0000] Idx=5                                        
-// INFO[0000] Idx=6                                        
-// INFO[0000] Idx=7                                        
-// INFO[0000] Idx=8                                        
-// INFO[0000] Idx=9                                        
-// INFO[0000] Idx=3                                        
-// INFO[0000] Idx=2                                        
-// INFO[0000] Idx=4
+// Output:
+// 2 * 0 = 0 
+// 2 ^ 1 = 3 
+// 2 ^ 2 = 0 
+// 2 * 2 = 4 
+// 2 * 1 = 2 
+// 2 ^ 0 = 2 
 ```

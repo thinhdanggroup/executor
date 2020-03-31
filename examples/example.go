@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/sirupsen/logrus"
 	"github.com/thinhdanggroup/executor"
 )
@@ -15,9 +17,13 @@ func main() {
 	// close resource before quit
 	defer executor.Close()
 
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 3; i++ {
 		executor.Publish(func(input int) {
-			logrus.Infof("Idx=%d", input)
+			fmt.Printf("2 * %d = %d \n", input, 2*input)
+		}, i)
+
+		executor.Publish(func(input int) {
+			fmt.Printf("2 ^ %d = %d \n", input, input^2)
 		}, i)
 	}
 
