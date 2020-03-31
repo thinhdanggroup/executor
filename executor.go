@@ -1,9 +1,10 @@
-package thinhdanggroup/executor
+package executor
 
 import (
 	"fmt"
 	"reflect"
 	"sync"
+
 	"go.uber.org/ratelimit"
 )
 
@@ -68,14 +69,7 @@ func (pipeline *Executor) Publish(handler interface{}, inputArgs ...interface{})
 	}
 
 	pipeline.PublishJob(job)
-
 	return nil
-}
-
-func (pipeline *Executor) initWorker(numWorker int) {
-	for i := 0; i < numWorker; i++ {
-		go pipeline.runWorker()
-	}
 }
 
 func (pipeline *Executor) PublishJob(job *Job) {
@@ -85,6 +79,12 @@ func (pipeline *Executor) PublishJob(job *Job) {
 
 	pipeline.WaitGroup.Add(1)
 	pipeline.Channel <- job
+}
+
+func (pipeline *Executor) initWorker(numWorker int) {
+	for i := 0; i < numWorker; i++ {
+		go pipeline.runWorker()
+	}
 }
 
 func (pipeline *Executor) runWorker() {
