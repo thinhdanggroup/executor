@@ -3,13 +3,12 @@ language: go
 go:
   - 1.13.6
 
-before_script:
-  - go get golang.org/x/tools/cmd/cover
-  - go get github.com/mattn/goveralls
-
 jobs:
   include:
     - stage: test
       name: "Test"
       script: $(go env GOPATH | awk 'BEGIN{FS=":"} {print $1}')/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
-      before_script: go test -v -covermode=count -coverprofile=coverage.out
+      before_script:
+        - go get golang.org/x/tools/cmd/cover
+        - go get github.com/mattn/goveralls
+        - go test -v -covermode=count -coverprofile=coverage.out
