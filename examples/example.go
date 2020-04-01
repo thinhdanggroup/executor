@@ -25,6 +25,10 @@ func main() {
 		executor.Publish(func(input int) {
 			fmt.Printf("2 ^ %d = %d \n", input, input^2)
 		}, i)
+
+		executor.Publish(func(a int, b int) {
+			fmt.Printf("%d + %d = %d \n", a, b, a+b)
+		}, i, i+1)
 	}
 
 }
