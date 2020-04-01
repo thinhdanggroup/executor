@@ -18,17 +18,21 @@ func main() {
 	defer executor.Close()
 
 	for i := 0; i < 3; i++ {
-		executor.Publish(func(input int) {
-			fmt.Printf("2 * %d = %d \n", input, 2*input)
-		}, i)
-
-		executor.Publish(func(input int) {
-			fmt.Printf("2 ^ %d = %d \n", input, input^2)
-		}, i)
-
-		executor.Publish(func(a int, b int) {
-			fmt.Printf("%d + %d = %d \n", a, b, a+b)
-		}, i, i+1)
+		executor.Publish(mul, i)
+		executor.Publish(pow, i)
+		executor.Publish(sum, i, i+1)
 	}
 
+}
+
+func mul(input int) {
+	fmt.Printf("2 * %d = %d \n", input, 2*input)
+}
+
+func pow(input int) {
+	fmt.Printf("2 ^ %d = %d \n", input, input^2)
+}
+
+func sum(a int, b int) {
+	fmt.Printf("%d + %d = %d \n", a, b, a+b)
 }
