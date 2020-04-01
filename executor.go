@@ -24,27 +24,27 @@ type Job struct {
 	Args    []reflect.Value
 }
 
-// ExecutorConfig is a config of executor.
+// Config is a config of executor.
 // ReqPerSeconds is request per seconds. If it is 0, no limit for requests.
 // QueueSize is size of buffer. Executor use synchronize channel, publisher will waiting if channel is full.
 // NumWorkers is a number of goroutine.
-type ExecutorConfig struct {
+type Config struct {
 	ReqPerSeconds int
 	QueueSize     int
 	NumWorkers    int
 }
 
-// DefaultExecutorConfig is a default config
-func DefaultExecutorConfig() ExecutorConfig {
-	return ExecutorConfig{
+// DefaultConfig is a default config
+func DefaultConfig() Config {
+	return Config{
 		ReqPerSeconds: 0,
 		QueueSize:     2 * runtime.NumCPU(),
 		NumWorkers:    runtime.NumCPU(),
 	}
 }
 
-// NewExecutor returns a Executors that will manage workers.
-func NewExecutor(config ExecutorConfig) (*Executor, error) {
+// New returns a Executors that will manage workers.
+func New(config Config) (*Executor, error) {
 	err := config.validate()
 
 	if err != nil {
@@ -104,6 +104,7 @@ func (pipeline *Executor) Publish(handler interface{}, inputArgs ...interface{})
 	return nil
 }
 
+// PublishJob publish a provided job.
 func (pipeline *Executor) PublishJob(job *Job) {
 	if pipeline.RateLimit != nil {
 		pipeline.RateLimit.Take()
@@ -165,7 +166,7 @@ func validateFunc(handler interface{}, nArgs int) (interface{}, error) {
 	return f, nil
 }
 
-func (p *ExecutorConfig) validate() error {
+func (p *Config) validate() error {
 	if p.ReqPerSeconds < 0 {
 		return fmt.Errorf("%T must non negative", "ReqPerSeconds")
 	}

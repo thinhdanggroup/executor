@@ -10,7 +10,7 @@ import (
 func TestValidateConfig(t *testing.T) {
 	assert := assert.New(t)
 
-	executor, err := NewExecutor(ExecutorConfig{})
+	executor, err := New(Config{})
 
 	assert.NotNil(err)
 	assert.Nil(executor)
@@ -25,7 +25,7 @@ func TestPublishJobSuccess(t *testing.T) {
 
 	as = assert.New(t)
 
-	executor, err := NewExecutor(DefaultExecutorConfig())
+	executor, err := New(DefaultConfig())
 
 	as.Nil(err)
 
@@ -47,7 +47,7 @@ func TestPublishJobFail(t *testing.T) {
 
 	as = assert.New(t)
 
-	executor, err := NewExecutor(DefaultExecutorConfig())
+	executor, err := New(DefaultConfig())
 
 	as.Nil(err)
 
@@ -77,7 +77,7 @@ func TestRateLimiter(t *testing.T) {
 
 	as = assert.New(t)
 
-	executor, err := NewExecutor(ExecutorConfig{
+	executor, err := New(Config{
 		ReqPerSeconds: 2,
 		NumWorkers:    2,
 		QueueSize:     10,

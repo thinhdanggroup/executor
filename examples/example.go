@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	executor, err := executor.NewExecutor(executor.DefaultExecutorConfig())
+	executor, err := executor.New(executor.DefaultConfig())
 
 	if err != nil {
 		logrus.Error(err)
