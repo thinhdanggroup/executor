@@ -10,7 +10,7 @@ Features:
 - Rate limiter
 - Dynamic handler by reflect
 
-More information at [Blog](https://thinhdanggroup.github.io/executor-library/).
+More information at [Blog](https://thinhdanggroup.github.io/executor-library-en/).
 
 ### Install
 
