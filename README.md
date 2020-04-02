@@ -10,6 +10,8 @@ Features:
 - Rate limiter
 - Dynamic handler by reflect
 
+More information at [Blog](https://thinhdanggroup.github.io/executor-library/).
+
 ### Install
 
 ```bash
