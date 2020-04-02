@@ -2,7 +2,7 @@
 
 ![version](https://img.shields.io/badge/version-0.1.0-red) [![contributors](https://img.shields.io/badge/contributors-3-blue)]() [![Build Status](https://travis-ci.org/thinhdanggroup/executor.svg?branch=master)](https://travis-ci.org/thinhdanggroup/executor) [![Coverage Status](https://coveralls.io/repos/github/thinhdanggroup/executor/badge.svg?branch=master)](https://coveralls.io/github/thinhdanggroup/executor?branch=master)
 
-Executor is a simple thread pool implemented for Golang.
+Executor is a simple worker pool implemented for Golang.
 
 Features:
 
