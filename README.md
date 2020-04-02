@@ -10,7 +10,7 @@ Features:
 - Rate limiter
 - Dynamic handler by reflect
 
-More information at [Blog](https://thinhdanggroup.github.io/executor-library-en/).
+More information at [Blog](https://medium.com/@thinhda/executor-worker-pool-in-go-86ef94ffb141).
 
 ### Install
 
